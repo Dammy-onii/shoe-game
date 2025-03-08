@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router";
+import ReusableButton from "../components/reusableButton/Index";
 
 function Genre() {
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [numQuestions, setNumQuestions] = useState(1);
+
+  const handleGenreChange = (e) => {
+    setSelectedGenre(e.target.value);
+  };
+
+  const handleNumQuestionsChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    setNumQuestions(value);
+  };
+
   return (
     <div className=" w-full h-screen bg-blue-50 flex flex-col items-center justify-center ">
       <div className=" flex flex-col items-center justify-center   ">
@@ -52,11 +65,52 @@ function Genre() {
               new, colorful way!
             </p>
           </div>
-          <NavLink to="/genre">
-            <button className=" button-53 kabl text-2xl hover:font-extrabold font-bold ">
-              <h2 className="  ">Proceed to Game</h2>
-            </button>
-          </NavLink>
+          <div className=" space-y-4 ">
+            <div className=" my-2 ">
+              <label
+                htmlFor="genre"
+                className="block text-lg font-medium text-gray-700"
+              >
+                Select Genre:
+              </label>
+              <select
+                id="genre"
+                value={selectedGenre}
+                onChange={handleGenreChange}
+                className="mt-1 block w-full rounded-md py-2 px-2 border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 outline-none"
+              >
+                <option value="">-- Choose a Genre --</option>
+                <option value="Personality">Personality</option>
+                <option value="Food">Food</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Hobbies & Interests">Hobbies & Interests</option>
+                <option value="Relationship & Bonding">
+                  Relationship & Bonding
+                </option>
+                <option value="Travel & Adventure">Travel & Adventure</option>
+              </select>
+            </div>
+            <div className=" mb-10 ">
+              <label
+                htmlFor="numQuestions"
+                className="block text-lg font-medium text-gray-700"
+              >
+                Number of Questions (max 25):
+              </label>
+              <input
+                type="number"
+                id="numQuestions"
+                value={numQuestions}
+                onChange={handleNumQuestionsChange}
+                min={1}
+                max={25}
+                className="mt-1 py-2 px-2 block w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500  focus:ring-indigo-500 outline-none"
+              />
+            </div>
+
+            <ReusableButton link="/genre" text="Proceed to Game" />
+          </div>
         </div>
       </div>
     </div>
